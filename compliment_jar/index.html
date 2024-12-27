@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
+        75% {
+          transform: translateX(-5px);
+        }
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .shake {
+        animation: shake 0.5s ease-in-out;
+      }
+
+      body {
+        background-color: #fffff0; /*ivory*/
+      }
+
+      .navbar {
+        background-color: #fadadd;
+        color: #36395a;
+        font-size: 36px;
+        padding-left: 25px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .content_container {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .left-section {
+        padding: 20px;
+      }
+
+      .right_section {
+        padding: 20px;
+      }
+
+      .typing_container {
+        font-family: Arial, Helvetica, sans-serif;
+        margin-left: 50px;
+        margin-top: 150px;
+        line-height: 1.5;
+      }
+
+      #line1 {
+        color: #333;
+        font-size: 62px;
+        font-style: oblique;
+        text-decoration: wavy;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      #line2 {
+        font-size: 36px;
+        color: #36395a;
+      }
+
+      #line3 {
+        font-size: 52px;
+        color: #36395a;
+      }
+
+      #typing_text::after {
+        content: "|";
+        animation: blink 0.7s step-start infinite;
+      }
+
+      #jar_image {
+        height: 350px;
+        width: 350px;
+        margin-left: 165px;
+      }
+
+      .jar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30px;
+      }
+
+      .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding-top: 15px;
+        margin-right: 20px;
+        margin-left: 10px;
+      }
+
+      #contact {
+        align-items: center;
+        appearance: none;
+        background-color: #fffff0;
+        background-size: calc(100% + 20px) calc(100% + 20px);
+        border-radius: 100px;
+        border-width: 0;
+        box-shadow: none;
+        box-sizing: border-box;
+        color: #36395a;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: CircularStd, sans-serif;
+        font-size: 20px;
+        height: auto;
+        justify-content: center;
+        line-height: 1.5;
+        padding: 6px 20px;
+        margin-left: 1100px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s, background-position 0.2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: top;
+        white-space: nowrap;
+      }
+
+      #contact:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+        transform: translateY(-2px);
+      }
+
+      #contact:active {
+        box-shadow: #d6d6e7 0 3px 7px inset;
+        transform: translateY(2px);
+      }
+      .shake-button {
+        appearance: none;
+        background-color: #fadadd;
+        border-radius: 4px;
+        border-width: 0;
+        box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+        box-sizing: border-box;
+        color: #36395a;
+        cursor: pointer;
+        font-family: "JetBrains Mono", monospace;
+        height: 48px;
+        padding-left: 16px;
+        padding-right: 16px;
+        text-align: center;
+        transition: box-shadow 0.15s, transform 0.15s;
+        font-size: 18px;
+      }
+
+      .shake-button:focus {
+        box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+      }
+
+      .shake-button:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+          rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+        transform: translateY(-2px);
+      }
+
+      .shake-button:active {
+        box-shadow: #d6d6e7 0 3px 7px inset;
+        transform: translateY(2px);
+      }
+
+      #compliment {
+        display: none; /* Hidden by default */
+        opacity: 0; /* Start with 0 opacity */
+        transition: opacity 1s ease; /* Fade transition */
+        text-align: center;
+        font-size: 24px;
+        padding-bottom: 20px;
+      }
+
+      #compliment.show {
+        display: block;
+        opacity: 1; /* Fade in */
+      }
+
+      .text {
+        font-size: 22px;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        color: #36395a;
+        text-decoration: underline;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        padding-top: 50px;
+      }
+
+      .socials {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 150px;
+        margin-right: 20px;
+        background-color: #fffff0;
+        border: 1px solid #f1f1f1;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px #fadadd;
+        font-size: 20px;
+        transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth show/hide animation */
+      }
+
+      .socials a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #333;
+        padding: 5px;
+        border-radius: 5px;
+        transition: background-color 0.2s ease;
+      }
+
+      .socials a:hover {
+        background-color: #f1f1f1;
+      }
+
+      .socials a img {
+        width: 35px;
+        height: 35px;
+        margin-right: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      CharmNote
+      <button id="contact">Contact me</button>
+    </div>
+
+    <div class="socials" id="links">
+      <a
+        href="https://www.linkedin.com/in/sneha-sinha-b63438246?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        target="_blank"
+        ><img src="images\linkedIn_icon.jpeg" alt="LinkedIn" />LinkedIn</a
+      >
+      <a href="https://github.com/Sneha0121" target="_blank"
+        ><img src="images\github_icon.jpeg" alt="Github" />Github</a
+      >
+      <a href="mailto:snehasinha31670@gmail.com" target="_blank"
+        ><img src="images\email_icon.jpeg" alt="Email" />Email</a
+      >
+    </div>
+
+    <div class="content_container">
+      <div class="left_section">
+        <div class="typing_container">
+          <span id="line1" class="line"></span> <br />
+          <span id="line2" class="line"></span> <br />
+          <span id="line3" class="line"></span>
+        </div>
+      </div>
+
+      <div class="right_section">
+        <div class="text">
+          Feeling low? Why? You are amazing and <br />
+          here's a compliment for you
+        </div>
+        <img id="jar_image" src="images\jar_image.jpeg" alt="" />
+
+        <div id="compliment">Here's your compliment!</div>
+
+        <div class="buttons">
+          <button class="shake-button" onclick="getCompliment()">
+            Generate random <br />
+            compliment
+          </button>
+          <!-- uncomment below for ai generated compliment -->
+          <!-- <button class="shake-button">Generate personalised <br> compliment</button> -->
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // shake animation
+
+    const image = document.getElementById("jar_image");
+    const buttons = document.querySelectorAll(".shake-button");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        image.classList.add("shake");
+
+        setTimeout(() => {
+          image.classList.remove("shake");
+        }, 500);
+      });
+    });
+
+    //shake jar
+
+    function shakeJar() {
+      const jar = document.getElementById("jar_image");
+      jar.classList.add("shake");
+
+      setTimeout(() => {
+        jar.classList.remove("shake");
+      }, 500);
+    }
+
+    shakeJar();
+
+    // compliments
+    const compliments = [
+      "You have the most precious laugh!",
+      "I love your smile",
+      "You got the most beautiful eyes",
+      "Being with you is always fun",
+      "Spending time with you works better than therapy",
+      "You are freaking smart",
+      "...and my favorite person award goes to *drumroll* YOU!!",
+      "Your voice is so soothing",
+      "Being with you makes me feel calm",
+      "You existence makes the world a better place",
+      "You have got a pretty good humour",
+      "Your eyes are beautiful",
+      "You are very attractive",
+      "Your laugh is so melodic and you should laugh more",
+      "You are such an amazing person",
+      "You are my favorite person",
+      "You're like sunshine on a cloudy day—everything just feels brighter with you around.",
+      "I could get lost in your smile for hours; it's the purest form of happiness.",
+      "You're the kind of person who makes everyone feel special just by being yourself.",
+      "You have a way of making even the simplest moments unforgettable.",
+      "There's magic in the way you speak; your words linger long after you're gone.",
+      "You're proof that kindness can light up even the darkest places.",
+      "Every time I see you, I find a new reason to admire you.",
+      "Your laugh? It's the most comforting sound in the world.",
+      "You're the calm in my storm, the steady hand I reach for.",
+      "If people were songs, you'd be my favorite one on repeat.",
+      "You make ordinary moments feel like something straight out of a storybook.",
+      "You're like a warm cup of tea on a chilly evening—simply perfect.",
+      "You have this light that makes everything feel possible.",
+      "Your energy is contagious; I can't help but smile around you.",
+      "You're like the first bloom of spring, bringing beauty and life wherever you go.",
+      "You light up every room you walk into.",
+      "You have a heart of gold.",
+      "You're a true gem.",
+      "Your smile is contagious.",
+      "You have an incredible energy.",
+      "You're so thoughtful.",
+      "You're a joy to be around.",
+      "You make everything better.",
+      "You're a natural at what you do.",
+      "Your kindness is inspiring.",
+      "You're effortlessly cool.",
+      "You always know how to make me smile.",
+      "You're so talented.",
+      "You bring out the best in people.",
+      "Your laugh is pure happiness.",
+      "You radiate positivity.",
+      "You're a breath of fresh air.",
+      "You're a rare find.",
+      "You have a beautiful soul.",
+      "You make the world a better place.",
+      "You make the world a better place, one small moment at a time.",
+      "You're my favorite reason to believe in serendipity.",
+      "I could write novels about the way you make me feel.",
+      "You're the reason I believe in silver linings.",
+      "There's a quiet strength in you that inspires everyone around.",
+      "You're the dream I didn't know I had until I met you.",
+      "Your kindness has this way of creating ripples wherever it goes.",
+      "If hugs were people, you'd be the warmest, most comforting one.",
+      "You make life feel like a beautiful adventure.",
+      "Your voice is like a melody that sticks with me.",
+      "You're my favorite part of every day.",
+      "Your compassion is as deep as the ocean.",
+      "You make time stop with a single smile.",
+      "I admire how you stay true to yourself in a world that's always changing.",
+      "You're as refreshing as a breath of fresh air.",
+      "Your presence alone turns an empty room into a home.",
+      "If kindness had a face, it would be yours.",
+      "You inspire me to be the best version of myself.",
+      "Your laughter could light up an entire city.",
+      "Every second with you feels like a treasured memory.",
+      "You make me want to believe in fairy tales.",
+      "You're the reason I look forward to tomorrow.",
+      "Your love is like an anchor that keeps me grounded.",
+      "You're the most beautiful blend of heart and soul.",
+      "I don't need a reason to smile when I think of you.",
+    ];
+
+    // get random compliment
+
+    function getCompliment() {
+      const complimentElement = document.getElementById("compliment");
+      const randomIndex = Math.floor(Math.random() * compliments.length);
+      const randomCompliment = compliments[randomIndex];
+
+      complimentElement.textContent = randomCompliment;
+      complimentElement.classList.add("show"); // Show the compliment with fade effect
+    }
+    // contact button
+
+    const contactButton = document.getElementById("contact");
+    const links = document.getElementById("links");
+    contactButton.addEventListener("click", () => {
+      if (links.style.display === "flex") {
+        links.style.display = "none";
+      } else {
+        links.style.display = "flex";
+      }
+    });
+
+    // typing text on left
+
+    const lines = [
+      "Welcome to CharmNote!",
+      "A website to spread postivity and shower you with compliments ",
+      "<3",
+    ];
+    let currentLine = 0;
+    let currentIndex = 0;
+    let isDeleting = false;
+    let lineFinished = [false, false, false];
+
+    function typeText() {
+      const typeTextElement1 = document.getElementById("line1");
+      const typeTextElement2 = document.getElementById("line2");
+      const typeTextElement3 = document.getElementById("line3");
+      const elements = [typeTextElement1, typeTextElement2, typeTextElement3];
+      const speed = isDeleting ? 75 : 100;
+
+      if (!isDeleting) {
+        elements[currentLine].textContent +=
+          lines[currentLine].charAt(currentIndex);
+        currentIndex++;
+        if (currentIndex === lines[currentLine].length) {
+          lineFinished[currentLine] = true;
+          currentLine++;
+          currentIndex = 0;
+
+          if (currentLine === lines.length) {
+            isDeleting = true;
+            currentLine--;
+            setTimeout(typeText, 1000);
+            return;
+          }
+        }
+      } else {
+        elements[currentLine].textContent = lines[currentLine].substring(0,currentIndex);
+        currentIndex--;
+        if (currentIndex < 0) {
+          lineFinished[currentLine] = false;
+          currentLine--;
+
+          if (currentLine < 1) {
+            isDeleting = false;
+            currentLine = 1;
+            currentIndex = 0;
+            setTimeout(typeText, 500);
+            return;
+          } else {
+            currentIndex = lines[currentLine].length;
+          }
+        }
+      }
+
+      setTimeout(typeText, speed);
+    }
+
+    typeText();
+
+  </script>
+</html>
